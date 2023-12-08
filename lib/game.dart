@@ -1,7 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
-
-import 'components/foundation.dart';
+import 'package:jam_game/components/hero.dart';
 
 class NewGame extends FlameGame {
   static const double heroWidth = 500.0;
@@ -10,7 +9,7 @@ class NewGame extends FlameGame {
 
   @override
   Future<void> onLoad() async {
-    final hero = Hero()
+    final hero = HeroComponent()
       ..size = heroSize
       ..position = Vector2(heroWidth, heroHeight);
 

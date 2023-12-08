@@ -1,7 +1,6 @@
 import 'package:flame/game.dart';
 import 'package:flutter/widgets.dart';
-
-import 'game.dart';
+import 'package:jam_game/game.dart';
 
 void main() {
   final game = NewGame();

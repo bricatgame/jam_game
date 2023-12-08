@@ -8,15 +8,14 @@ environment:
   sdk: '>=3.0.3 <4.0.0'
 
 dependencies:
+  flame: ^1.11.0
+  flame_audio: ^2.1.4
+  flame_bloc: ^1.10.6
   flutter:
     sdk: flutter
-  flame: ^1.11.0
-  flame_bloc: ^1.10.6
-  flame_audio: ^2.1.4
 
 dev_dependencies:
   flame_lint: ^1.1.2
-
 
 flutter:
   assets:
