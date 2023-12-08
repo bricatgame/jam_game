@@ -1,23 +1,80 @@
-import 'package:flame/components.dart';
 import 'package:flame/game.dart';
-import 'package:jam_game/components/hero.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jam_game/game/game.dart';
+import 'package:jam_game/player/bloc/player_bloc.dart';
 
-class NewGame extends FlameGame {
-  static const double heroWidth = 500.0;
-  static const double heroHeight = 1000.0;
-  static final Vector2 heroSize = Vector2(heroWidth, heroHeight);
+class GamePage extends StatelessWidget {
+  const GamePage({super.key});
 
   @override
-  Future<void> onLoad() async {
-    final hero = HeroComponent()
-      ..size = heroSize
-      ..position = Vector2(heroWidth, heroHeight);
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: MultiBlocProvider(
+        providers: [
+          BlocProvider<PlayerBloc>(create: (_) => PlayerBloc()),
+        ],
+        child: const GameView(),
+      ),
+    );
+  }
+}
 
-    world.add(hero);
+class GameView extends StatelessWidget {
+  const GameView({super.key});
 
-    camera.viewfinder.visibleGameSize =
-        Vector2(heroWidth * 7 * 8, 4 * heroHeight);
-    camera.viewfinder.position = Vector2(heroWidth * 3.5, heroHeight);
-    camera.viewfinder.anchor = Anchor.topCenter;
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        const Expanded(
+          child: Stack(
+            children: [
+              Positioned.fill(child: Game()),
+            ],
+          ),
+        ),
+        Align(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                context.select((PlayerBloc bloc) => bloc.state.name),
+                style: const TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  context
+                      .read<PlayerBloc>()
+                      .add(const ChangeName(newName: 'Loading...'));
+                },
+                child: const Text(
+                  'START GAME!!',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class Game extends StatelessWidget {
+  const Game({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GameWidget(
+      game: NewGame(
+        playerBloc: context.read<PlayerBloc>(),
+      ),
+    );
   }
 }
