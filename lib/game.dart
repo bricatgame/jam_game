@@ -25,33 +25,12 @@ class GameView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      fit: StackFit.expand,
+    return const Column(
       children: [
-        const Positioned.fill(child: Game()),
-        Align(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+        Expanded(
+          child: Stack(
             children: [
-              Text(
-                context.select((PlayerBloc bloc) => bloc.state.name),
-                style: const TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  context
-                      .read<PlayerBloc>()
-                      .add(const ChangeName(newName: 'Loading...'));
-                },
-                child: const Text(
-                  'START GAME!!',
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
-              ),
+              Positioned.fill(child: Game()),
             ],
           ),
         ),
@@ -66,9 +45,7 @@ class Game extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GameWidget(
-      game: NewGame(
-        playerBloc: context.read<PlayerBloc>(),
-      ),
+      game: NewGame(),
     );
   }
 }
