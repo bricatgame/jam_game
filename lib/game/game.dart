@@ -1,10 +1,11 @@
 import 'package:flame/components.dart';
+import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flame_bloc/flame_bloc.dart';
 import 'package:jam_game/game/components/hero.dart';
 import 'package:jam_game/player/bloc/player_bloc.dart';
 
-class NewGame extends FlameGame {
+class NewGame extends FlameGame with HasKeyboardHandlerComponents {
   final PlayerBloc playerBloc;
 
   NewGame({
