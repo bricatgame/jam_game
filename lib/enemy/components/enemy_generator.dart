@@ -7,8 +7,9 @@ import 'package:jam_game/game/game.dart';
 class EnemyCreator extends TimerComponent with HasGameReference<NewGame> {
   Random random = Random();
 
-  EnemyCreator() : super(period: 5, repeat: true);
+  EnemyCreator() : super(period: 1, repeat: true);
 
+  int count = 0;
   @override
   void onTick() {
     final centerX = game.size.x / 2.0;
@@ -20,20 +21,14 @@ class EnemyCreator extends TimerComponent with HasGameReference<NewGame> {
 
     final mobX = centerX + radius * cos(angle);
     final mobY = centerY + radius * sin(angle);
-
-    game.addAll([
-      EnemyComponent(
-        mobX,
-        mobY,
-      ),
-      EnemyComponent(
-        mobX,
-        mobY,
-      ),
-      EnemyComponent(
-        mobX,
-        mobY,
-      ),
-    ]);
+    if (count == 0) {
+      count++;
+      game.world.add(
+        EnemyComponent(
+          mobX,
+          mobY,
+        ),
+      );
+    }
   }
 }
