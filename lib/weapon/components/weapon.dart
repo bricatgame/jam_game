@@ -40,20 +40,32 @@ class Weapon extends PositionComponent
   @override
   void attack() {
     if (parent is EnemyComponent) {
-      final vector2 = game.world.firstChild<HeroComponent>()!.position;
-      final directionX = vector2.x - absolutePosition.x;
-      final directionY = vector2.y - absolutePosition.y;
+      final direction =
+          game.world.firstChild<HeroComponent>()!.position - absolutePosition;
 
-      final length = sqrt(directionX * directionX + directionY * directionY);
+      final length =
+          sqrt(direction.x * direction.x + direction.y * direction.y);
 
-      final directionXNormalized = directionX / length;
-      final directionYNormalized = directionY / length;
+      final directionNormolized = direction / length;
 
       game.world.add(
         BulletComponent(
-          absolutePosition.x,
-          absolutePosition.y,
-          Vector2(directionXNormalized, directionYNormalized),
+          direction: directionNormolized,
+          speed: 50,
+          position: absolutePosition,
+        ),
+      );
+    }
+
+    if (parent is HeroComponent) {
+      print("Weapon position $absolutePosition");
+      print("Mouse position ${game.mousePosition}");
+
+      game.world.add(
+        BulletComponent(
+          direction: (absolutePosition - game.mousePosition).normalized(),
+          speed: 150,
+          position: absolutePosition,
         ),
       );
     }

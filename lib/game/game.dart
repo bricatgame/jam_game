@@ -5,7 +5,12 @@ import 'package:jam_game/enemy/components/enemy_generator.dart';
 import 'package:jam_game/game/components/hero.dart';
 
 class NewGame extends FlameGame
-    with HasKeyboardHandlerComponents, HasCollisionDetection {
+    with
+        HasKeyboardHandlerComponents,
+        HasCollisionDetection,
+        MouseMovementDetector {
+  Vector2 mousePosition = Vector2(0, 0);
+
   NewGame();
 
   static const double heroWidth = 2.0;
@@ -17,13 +22,20 @@ class NewGame extends FlameGame
     final hero = HeroComponent()
       ..size = heroSize
       ..position = Vector2(heroWidth, heroHeight);
-
     world.add(hero);
 
-    add(EnemyCreator());
+    // add(EnemyCreator());
 
     camera.viewfinder.visibleGameSize = Vector2(200, 200);
     camera.viewfinder.position = Vector2(heroWidth * 3.5, heroHeight);
-    camera.viewfinder.anchor = Anchor.center;
+    camera.viewfinder.anchor = Anchor.topLeft;
+  }
+
+  @override
+  void onMouseMove(PointerHoverInfo info) {
+    super.onMouseMove(info);
+    mousePosition = info.eventPosition.widget;
+    // convertGlobalToLocalCoordinate(point)
+    // print(mousePosition);
   }
 }
