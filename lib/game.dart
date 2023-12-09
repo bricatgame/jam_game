@@ -28,13 +28,7 @@ class GameView extends StatelessWidget {
     return Stack(
       fit: StackFit.expand,
       children: [
-        const Expanded(
-          child: Stack(
-            children: [
-              Positioned.fill(child: Game()),
-            ],
-          ),
-        ),
+        const Positioned.fill(child: Game()),
         Align(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
