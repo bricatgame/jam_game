@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:jam_game/enemy/components/enemy.dart';
 import 'package:jam_game/game/game.dart';
+import 'package:jam_game/weapon/components/weapon.dart';
 
 class EnemyCreator extends TimerComponent with HasGameReference<NewGame> {
   Random random = Random();
@@ -25,6 +26,7 @@ class EnemyCreator extends TimerComponent with HasGameReference<NewGame> {
       EnemyComponent(
         mobX,
         mobY,
+        [Weapon()],
       ),
     );
   }
