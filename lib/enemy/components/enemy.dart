@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:jam_game/enemy/i_enemy.dart';
@@ -29,18 +27,13 @@ class EnemyComponent extends SpriteComponent
   void update(double dt) {
     super.update(dt);
 
-    // final centerX = game.size.x / 2.0;
-    // final centerY = game.size.y / 2.0;
-
-    // final directionX = centerX - x;
-    // final directionY = centerY - y;
-
-    // final length = sqrt(directionX * directionX + directionY * directionY);
-
     final directionXNormalized =
         game.world.firstChild<HeroComponent>()!.position.x;
     final directionYNormalized =
         game.world.firstChild<HeroComponent>()!.position.y;
+
+    print(directionXNormalized);
+    print(directionYNormalized);
 
     x += directionXNormalized * enemySpeed;
     y += directionYNormalized * enemySpeed;
