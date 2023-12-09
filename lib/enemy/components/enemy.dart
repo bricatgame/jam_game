@@ -7,13 +7,25 @@ import 'package:jam_game/game/components/hero.dart';
 
 import 'package:jam_game/game/game.dart';
 
-class EnemyComponent extends PositionComponent with HasGameReference<NewGame>, CollisionCallbacks implements IEnemy {
+class EnemyComponent extends PositionComponent
+    with HasGameReference<NewGame>, CollisionCallbacks
+    implements IEnemy {
   static const enemySpeed = 100;
 
   bool destroyed = false;
+  late Timer attackCreator;
 
-  EnemyComponent(double x, double y) : super(position: Vector2(x, y), size: Vector2.all(25)) {
-    add(RectangleHitbox(collisionType: CollisionType.passive));
+  EnemyComponent(double x, double y)
+      : super(position: Vector2(x, y), size: Vector2.all(25)) {
+    attackCreator = Timer(
+      1,
+      repeat: true,
+      onTick: () {
+        makeAttack();
+      },
+    );
+
+    add(RectangleHitbox());
   }
 
   @override
@@ -22,22 +34,16 @@ class EnemyComponent extends PositionComponent with HasGameReference<NewGame>, C
   @override
   Future<void> onLoad() async {
     await super.onLoad();
+
+    attackCreator.start();
+    // sprite = await game.loadSprite('flutter.png');
   }
 
   @override
   void update(double dt) {
     super.update(dt);
 
-    final directionX = game.world.firstChild<HeroComponent>()!.position.x - position.x;
-    final directionY = game.world.firstChild<HeroComponent>()!.position.y - position.y;
-
-    final length = sqrt(directionX * directionX + directionY * directionY);
-
-    final directionXNormalized = directionX / length;
-    final directionYNormalized = directionY / length;
-
-    x += directionXNormalized * enemySpeed * dt;
-    y += directionYNormalized * enemySpeed * dt;
+    moving(dt, game.world.firstChild<HeroComponent>()!.position);
 
     if (destroyed) {
       removeFromParent();
@@ -48,27 +54,29 @@ class EnemyComponent extends PositionComponent with HasGameReference<NewGame>, C
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollision(intersectionPoints, other);
     if (other is HeroComponent) {
-      print('lsadadasdas');
+      takeDamage();
     }
   }
 
   @override
-  Future<void> makeAttack() {
-    // TODO: implement makeAttack
-    throw UnimplementedError();
-  }
+  Future<void> makeAttack() async {}
 
   @override
-  Future<void> moving(Vector2 vector2) {
-    // TODO: implement moving
-    throw UnimplementedError();
+  Future<void> moving(double dt, Vector2 vector2) async {
+    final directionX = vector2.x - position.x;
+    final directionY = vector2.y - position.y;
+
+    final length = sqrt(directionX * directionX + directionY * directionY);
+
+    final directionXNormalized = directionX / length;
+    final directionYNormalized = directionY / length;
+
+    x += directionXNormalized * enemySpeed * dt;
+    y += directionYNormalized * enemySpeed * dt;
   }
 
   @override
   Future<void> takeDamage() async {
     destroyed = true;
-
-    // game.add(ExplosionComponent(x - 25, y - 25));
-    // game.increaseScore();
   }
 }

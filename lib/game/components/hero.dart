@@ -1,22 +1,20 @@
-import 'dart:ui';
-
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/services.dart';
 import 'package:jam_game/game/game.dart';
 
 class HeroComponent extends PositionComponent
-    with KeyboardHandler, HasGameRef<NewGame> {
+    with KeyboardHandler, HasGameRef<NewGame>, CollisionCallbacks {
   static const speed = 200.0;
+
+  HeroComponent() : super() {
+    add(RectangleHitbox());
+  }
 
   Vector2 velocity = Vector2(0, 0);
 
   @override
   bool get debugMode => true;
-
-  @override
-  void render(Canvas canvas) {
-    // canvas.drawRect(size.toRect(), _paint);
-  }
 
   @override
   void update(double dt) {

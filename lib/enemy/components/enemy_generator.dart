@@ -9,7 +9,6 @@ class EnemyCreator extends TimerComponent with HasGameReference<NewGame> {
 
   EnemyCreator() : super(period: 1, repeat: true);
 
-  int count = 0;
   @override
   void onTick() {
     final centerX = game.size.x / 2.0;
@@ -21,14 +20,12 @@ class EnemyCreator extends TimerComponent with HasGameReference<NewGame> {
 
     final mobX = centerX + radius * cos(angle);
     final mobY = centerY + radius * sin(angle);
-    if (count == 0) {
-      count++;
-      game.world.add(
-        EnemyComponent(
-          mobX,
-          mobY,
-        ),
-      );
-    }
+
+    game.world.add(
+      EnemyComponent(
+        mobX,
+        mobY,
+      ),
+    );
   }
 }
