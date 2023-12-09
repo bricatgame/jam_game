@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:jam_game/enemy/components/enemy.dart';
 import 'package:jam_game/game/game.dart';
+import 'package:jam_game/weapon/components/melee_weapon.dart';
 import 'package:jam_game/weapon/components/weapon.dart';
 
 class EnemyCreator extends TimerComponent with HasGameReference<NewGame> {
@@ -22,11 +23,11 @@ class EnemyCreator extends TimerComponent with HasGameReference<NewGame> {
     final mobX = centerX + radius * cos(angle);
     final mobY = centerY + radius * sin(angle);
 
-    game.world.add(
+    game.add(
       EnemyComponent(
         mobX,
         mobY,
-        [Weapon()],
+        [MeleeWeapon()],
       ),
     );
   }

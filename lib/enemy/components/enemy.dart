@@ -36,7 +36,7 @@ class EnemyComponent extends PositionComponent
   void update(double dt) {
     super.update(dt);
 
-    moving(dt, game.world.firstChild<HeroComponent>()!.position);
+    moving(dt, game.firstChild<HeroComponent>()!.position);
 
     if (destroyed) {
       removeFromParent();

@@ -13,8 +13,8 @@ class NewGame extends FlameGame
 
   NewGame();
 
-  static const double heroWidth = 2.0;
-  static const double heroHeight = 2.0;
+  static const double heroWidth = 25.0;
+  static const double heroHeight = 25.0;
   static final Vector2 heroSize = Vector2(heroWidth, heroHeight);
 
   @override
@@ -22,9 +22,9 @@ class NewGame extends FlameGame
     final hero = HeroComponent()
       ..size = heroSize
       ..position = Vector2(heroWidth, heroHeight);
-    world.add(hero);
+    add(hero);
 
-    // add(EnemyCreator());
+    add(EnemyCreator());
 
     camera.viewfinder.visibleGameSize = Vector2(200, 200);
     camera.viewfinder.position = Vector2(heroWidth * 3.5, heroHeight);
@@ -35,7 +35,5 @@ class NewGame extends FlameGame
   void onMouseMove(PointerHoverInfo info) {
     super.onMouseMove(info);
     mousePosition = info.eventPosition.widget;
-    // convertGlobalToLocalCoordinate(point)
-    // print(mousePosition);
   }
 }

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:flame/components.dart';
 import 'package:jam_game/enemy/components/enemy.dart';
@@ -12,10 +11,11 @@ class Weapon extends PositionComponent
     with HasGameReference<NewGame>
     implements IWeapon {
   late Timer attackCreator;
+  final double timer = 0.5;
 
   Weapon() : super(size: Vector2.all(10), position: Vector2(0, 0)) {
     attackCreator = Timer(
-      1,
+      timer,
       repeat: true,
       onTick: attack,
     );
@@ -41,33 +41,30 @@ class Weapon extends PositionComponent
   void attack() {
     if (parent is EnemyComponent) {
       final direction =
-          game.world.firstChild<HeroComponent>()!.position - absolutePosition;
+          (game.firstChild<HeroComponent>()!.position - absolutePosition)
+              .normalized();
 
-      final length =
-          sqrt(direction.x * direction.x + direction.y * direction.y);
-
-      final directionNormolized = direction / length;
-
-      game.world.add(
-        BulletComponent(
-          direction: directionNormolized,
-          speed: 50,
-          position: absolutePosition,
-        ),
-      );
+      game.addAll(createBullet(direction));
     }
 
     if (parent is HeroComponent) {
-      print("Weapon position $absolutePosition");
-      print("Mouse position ${game.mousePosition}");
+      final direction = (game.mousePosition - absolutePosition).normalized();
 
-      game.world.add(
-        BulletComponent(
-          direction: (absolutePosition - game.mousePosition).normalized(),
-          speed: 150,
-          position: absolutePosition,
-        ),
-      );
+      game.addAll(createBullet(direction));
     }
+  }
+
+  @override
+  List<BulletComponent> createBullet(Vector2 direction) {
+    return [
+      BulletComponent(
+        direction: direction,
+        speed: 150,
+        limits: Vector4(0, 0, game.size.x, game.size.y),
+        isHero: true,
+        size: Vector2.all(10),
+        position: absolutePosition,
+      ),
+    ];
   }
 }

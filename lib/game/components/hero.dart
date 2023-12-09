@@ -1,13 +1,12 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flame/events.dart';
 import 'package:flutter/services.dart';
 import 'package:jam_game/game/game.dart';
 import 'package:jam_game/weapon/components/weapon.dart';
 
 class HeroComponent extends PositionComponent
     with KeyboardHandler, HasGameRef<NewGame>, CollisionCallbacks {
-  static const speed = 200.0;
+  static const speed = 100.0;
 
   HeroComponent() : super() {
     add(RectangleHitbox());
@@ -57,4 +56,6 @@ class HeroComponent extends PositionComponent
 
     return true;
   }
+
+  void takeDamage(damage) {}
 }
