@@ -6,25 +6,19 @@ import 'package:jam_game/enemy/i_enemy.dart';
 import 'package:jam_game/game/components/hero.dart';
 
 import 'package:jam_game/game/game.dart';
+import 'package:jam_game/weapon/components/weapon.dart';
 
 class EnemyComponent extends PositionComponent
     with HasGameReference<NewGame>, CollisionCallbacks
     implements IEnemy {
   static const enemySpeed = 100;
+  final List<Weapon> weapons;
 
   bool destroyed = false;
-  late Timer attackCreator;
 
-  EnemyComponent(double x, double y)
+  EnemyComponent(double x, double y, this.weapons)
       : super(position: Vector2(x, y), size: Vector2.all(25)) {
-    attackCreator = Timer(
-      1,
-      repeat: true,
-      onTick: () {
-        makeAttack();
-      },
-    );
-
+    addAll(weapons);
     add(RectangleHitbox());
   }
 
@@ -35,7 +29,6 @@ class EnemyComponent extends PositionComponent
   Future<void> onLoad() async {
     await super.onLoad();
 
-    attackCreator.start();
     // sprite = await game.loadSprite('flutter.png');
   }
 
