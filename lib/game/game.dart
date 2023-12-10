@@ -4,6 +4,8 @@ import 'package:flame/game.dart';
 import 'package:jam_game/enemy/components/enemy_generator.dart';
 import 'package:jam_game/game/components/hero.dart';
 import 'package:jam_game/game/components/level_generator.dart';
+import 'package:jam_game/game/components/level_text.dart';
+import 'package:jam_game/game/components/timer_text.dart';
 
 class NewGame extends FlameGame
     with
@@ -28,6 +30,10 @@ class NewGame extends FlameGame
     add(EnemyCreator());
 
     add(LevelGenerator());
+
+    add(TimerText());
+
+    add(LevelText());
 
     add(
       router = RouterComponent(
