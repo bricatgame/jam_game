@@ -40,9 +40,9 @@ class Weapon extends PositionComponent
   @override
   void attack() {
     if (parent is EnemyComponent) {
-      final direction =
-          (game.firstChild<HeroComponent>()!.position - absolutePosition)
-              .normalized();
+      final direction = (game.firstChild<HeroComponent>()?.position ??
+              Vector2(0, 0) - absolutePosition)
+          .normalized();
 
       game.addAll(createBullet(direction));
     }

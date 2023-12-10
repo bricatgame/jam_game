@@ -8,8 +8,10 @@ class NewGame extends FlameGame
     with
         HasKeyboardHandlerComponents,
         HasCollisionDetection,
+        PanDetector,
         MouseMovementDetector {
   Vector2 mousePosition = Vector2(0, 0);
+  int currentLvl = 1;
 
   NewGame();
 
@@ -29,6 +31,15 @@ class NewGame extends FlameGame
     camera.viewfinder.visibleGameSize = Vector2(200, 200);
     camera.viewfinder.position = Vector2(heroWidth * 3.5, heroHeight);
     camera.viewfinder.anchor = Anchor.topLeft;
+  }
+
+  @override
+  void onPanUpdate(DragUpdateInfo info) {
+    super.onPanUpdate(info);
+
+    mousePosition = info.eventPosition.widget;
+    firstChild<HeroComponent>()
+        ?.move(info.eventPosition.widget.x, info.eventPosition.widget.y);
   }
 
   @override

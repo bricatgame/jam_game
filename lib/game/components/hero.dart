@@ -1,12 +1,14 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/services.dart';
+import 'package:jam_game/enemy/components/enemy.dart';
 import 'package:jam_game/game/game.dart';
 import 'package:jam_game/weapon/components/weapon.dart';
 
 class HeroComponent extends PositionComponent
     with KeyboardHandler, HasGameRef<NewGame>, CollisionCallbacks {
   static const speed = 100.0;
+  int heroHealth = 10;
 
   HeroComponent() : super() {
     add(RectangleHitbox());
@@ -57,5 +59,21 @@ class HeroComponent extends PositionComponent
     return true;
   }
 
-  void takeDamage(damage) {}
+  void move(double panX, double panY) {
+    final directionPan = Vector2(panX, panY) - position;
+
+    velocity.x = directionPan.x;
+    direction.x = directionPan.x;
+    velocity.y = directionPan.y;
+    direction.y = directionPan.y;
+  }
+
+  void takeDamage(damage) {
+    heroHealth--;
+    //TODO:Uncommit enable death for player
+    // if (heroHealth == 0) {
+    //   removeFromParent();
+    //   game.pauseEngine();
+    // }
+  }
 }

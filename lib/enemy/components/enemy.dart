@@ -12,12 +12,17 @@ class EnemyComponent extends PositionComponent
     with HasGameReference<NewGame>, CollisionCallbacks
     implements IEnemy {
   static const enemySpeed = 100;
+  int enemyHealth;
   final List<Weapon> weapons;
 
   bool destroyed = false;
 
-  EnemyComponent(double x, double y, this.weapons)
-      : super(position: Vector2(x, y), size: Vector2.all(25)) {
+  EnemyComponent(
+    double x,
+    double y, {
+    required this.weapons,
+    this.enemyHealth = 1,
+  }) : super(position: Vector2(x, y), size: Vector2.all(25)) {
     addAll(weapons);
     add(RectangleHitbox());
   }
@@ -36,7 +41,7 @@ class EnemyComponent extends PositionComponent
   void update(double dt) {
     super.update(dt);
 
-    moving(dt, game.firstChild<HeroComponent>()!.position);
+    moving(dt, game.firstChild<HeroComponent>()?.position ?? Vector2(0, 0));
 
     if (destroyed) {
       removeFromParent();
@@ -70,6 +75,9 @@ class EnemyComponent extends PositionComponent
 
   @override
   Future<void> takeDamage() async {
-    destroyed = true;
+    enemyHealth--;
+    if (enemyHealth == 0) {
+      destroyed = true;
+    }
   }
 }
