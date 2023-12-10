@@ -6,16 +6,21 @@ import 'package:jam_game/enemy/components/enemy_mammoth.dart';
 import 'package:jam_game/enemy/components/enemy_reindeer.dart';
 import 'package:jam_game/enemy/components/enemy_snowman.dart';
 import 'package:jam_game/game/game.dart';
+import 'package:jam_game/weapon/components/bells.dart';
+import 'package:jam_game/weapon/components/burulya.dart';
 import 'package:jam_game/weapon/components/melee_weapon.dart';
+import 'package:jam_game/weapon/components/snowball.dart';
 import 'package:jam_game/weapon/components/weapon.dart';
 
 class EnemyCreator extends TimerComponent with HasGameReference<NewGame> {
   Random random = Random();
+  bool bosCreated = false;
 
   EnemyCreator() : super(period: 1, repeat: true);
 
   @override
   void onTick() {
+    timer.limit = game.currentLvl + 1;
     final centerX = game.size.x / 2.0;
     final centerY = game.size.y / 2.0;
 
@@ -29,8 +34,8 @@ class EnemyCreator extends TimerComponent with HasGameReference<NewGame> {
     if (game.currentLvl >= 1) {
       game.add(
         EnemyMammoth(
-          mobX + random.nextInt(50),
-          mobY + random.nextInt(50),
+          mobX + random.nextInt(500),
+          mobY + random.nextInt(500),
           weapons: [MeleeWeapon()],
         ),
       );
@@ -38,29 +43,32 @@ class EnemyCreator extends TimerComponent with HasGameReference<NewGame> {
     if (game.currentLvl >= 2) {
       game.add(
         EnemySnowman(
-          mobX + random.nextInt(50),
-          mobY + random.nextInt(50),
-          weapons: [Weapon()],
+          mobX + random.nextInt(500),
+          mobY + random.nextInt(500),
+          weapons: [SnowBallWeapon()],
         ),
       );
     }
     if (game.currentLvl >= 3) {
       game.add(
         EnemyReindeer(
-          mobX + random.nextInt(50),
-          mobY + random.nextInt(50),
-          weapons: [Weapon()],
+          mobX + random.nextInt(500),
+          mobY + random.nextInt(500),
+          weapons: [BellsWeapon()],
         ),
       );
     }
     if (game.currentLvl >= 4) {
-      game.add(
-        EnemyIcicle(
-          mobX + random.nextInt(50),
-          mobY + random.nextInt(50),
-          weapons: [Weapon()],
-        ),
-      );
+      if (!bosCreated) {
+        game.add(
+          EnemyIcicle(
+            mobX + random.nextInt(500),
+            mobY + random.nextInt(500),
+            weapons: [BurulyaWeapon(), SnowBallWeapon()],
+          ),
+        );
+        bosCreated = true;
+      }
     }
   }
 }

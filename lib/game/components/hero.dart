@@ -11,7 +11,7 @@ class HeroComponent extends PositionComponent
 
   HeroComponent() : super() {
     add(RectangleHitbox());
-    weapons = []; //Weapon()];
+    weapons = [Weapon()];
     addAll(weapons);
   }
 
