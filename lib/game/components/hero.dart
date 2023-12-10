@@ -1,7 +1,6 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/services.dart';
-import 'package:jam_game/enemy/components/enemy.dart';
 import 'package:jam_game/game/game.dart';
 import 'package:jam_game/weapon/components/weapon.dart';
 
