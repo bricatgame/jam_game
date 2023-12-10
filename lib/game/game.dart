@@ -3,6 +3,8 @@ import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:jam_game/enemy/components/enemy_generator.dart';
 import 'package:jam_game/game/components/hero.dart';
+import 'package:jam_game/game/components/level_generator.dart';
+import 'package:jam_game/game/level_two.dart';
 
 class NewGame extends FlameGame
     with
@@ -13,11 +15,12 @@ class NewGame extends FlameGame
   Vector2 mousePosition = Vector2(0, 0);
   int currentLvl = 1;
 
-  NewGame();
-
   static const double heroWidth = 25.0;
   static const double heroHeight = 25.0;
   static final Vector2 heroSize = Vector2(heroWidth, heroHeight);
+  late final RouterComponent router;
+
+  set setLevel(int value) => currentLvl = value;
 
   @override
   Future<void> onLoad() async {
@@ -25,8 +28,19 @@ class NewGame extends FlameGame
       ..size = heroSize
       ..position = Vector2(heroWidth, heroHeight);
     add(hero);
-
     add(EnemyCreator());
+
+    add(LevelGenerator());
+
+    add(
+      router = RouterComponent(
+        routes: {
+          'home': Route(NewGame.new),
+          'level_two': Route(LevelTwo.new),
+        },
+        initialRoute: 'home',
+      ),
+    );
 
     camera.viewfinder.visibleGameSize = Vector2(200, 200);
     camera.viewfinder.position = Vector2(heroWidth * 3.5, heroHeight);
