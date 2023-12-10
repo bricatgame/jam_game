@@ -6,6 +6,8 @@ import 'package:jam_game/enemy/components/enemy_mammoth.dart';
 import 'package:jam_game/enemy/components/enemy_reindeer.dart';
 import 'package:jam_game/enemy/components/enemy_snowman.dart';
 import 'package:jam_game/game/game.dart';
+import 'package:jam_game/weapon/components/bells.dart';
+import 'package:jam_game/weapon/components/burulya.dart';
 import 'package:jam_game/weapon/components/melee_weapon.dart';
 import 'package:jam_game/weapon/components/snowball.dart';
 import 'package:jam_game/weapon/components/weapon.dart';
@@ -18,7 +20,7 @@ class EnemyCreator extends TimerComponent with HasGameReference<NewGame> {
 
   @override
   void onTick() {
-    timer.limit = 5.0 - game.currentLvl;
+    timer.limit = game.currentLvl + 1;
     final centerX = game.size.x / 2.0;
     final centerY = game.size.y / 2.0;
 
@@ -52,7 +54,7 @@ class EnemyCreator extends TimerComponent with HasGameReference<NewGame> {
         EnemyReindeer(
           mobX + random.nextInt(500),
           mobY + random.nextInt(500),
-          weapons: [Weapon()],
+          weapons: [BellsWeapon()],
         ),
       );
     }
@@ -62,7 +64,7 @@ class EnemyCreator extends TimerComponent with HasGameReference<NewGame> {
           EnemyIcicle(
             mobX + random.nextInt(500),
             mobY + random.nextInt(500),
-            weapons: [Weapon()],
+            weapons: [BurulyaWeapon(), SnowBallWeapon()],
           ),
         );
         bosCreated = true;
