@@ -19,8 +19,6 @@ class NewGame extends FlameGame
   static final Vector2 heroSize = Vector2(heroWidth, heroHeight);
   late final RouterComponent router;
 
-  set setLevel(int value) => currentLvl = value;
-
   @override
   Future<void> onLoad() async {
     final hero = HeroComponent()
