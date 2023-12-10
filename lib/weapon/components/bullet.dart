@@ -47,7 +47,7 @@ class BulletComponent extends PositionComponent
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollision(intersectionPoints, other);
     if (other is HeroComponent && !isHero) {
-      other.takeDamage();
+      other.takeDamage(1);
       removeFromParent();
     }
 
