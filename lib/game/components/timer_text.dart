@@ -27,7 +27,5 @@ class TimerText extends TextComponent {
         (game?.firstChild<LevelGenerator>()!.timer.current ?? 0.0);
 
     text = currentTime.ceil().toString();
-
-    // position = Vector2(game?.size.x ?? 1 / 2, 50);
   }
 }

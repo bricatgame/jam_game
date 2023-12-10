@@ -29,10 +29,6 @@ class NewGame extends FlameGame
 
   @override
   Future<void> onLoad() async {
-    // camera.viewfinder.visibleGameSize = Vector2(1920, 1080);
-    // camera.viewfinder.position = Vector2(0, 0);
-    // camera.viewfinder.anchor = Anchor.topLeft;
-
     add(SpriteComponent(sprite: await loadSprite('BG_snow.png')));
 
     final hero = HeroComponent()

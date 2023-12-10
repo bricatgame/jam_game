@@ -24,13 +24,15 @@ class HeroComponent extends PositionComponent
 
   @override
   void update(double dt) {
-    print(game.size);
+    super.update(dt);
+
     final resultPosition = position + velocity * speed * dt;
+
     if ((resultPosition.x > 20 && resultPosition.y > 20) &&
-        (resultPosition.x < game.size.x && resultPosition.x < game.size.y)) {
+        (resultPosition.x < game.size.x - size.x &&
+            resultPosition.y < game.size.y - size.y)) {
       position += velocity * speed * dt;
     }
-    super.update(dt);
   }
 
   @override
