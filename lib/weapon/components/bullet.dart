@@ -13,8 +13,6 @@ class BulletComponent extends PositionComponent
   final Vector4 limits;
   final bool isHero;
 
-  var damage;
-
   BulletComponent({
     required this.direction,
     required this.speed,
