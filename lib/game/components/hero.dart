@@ -12,7 +12,7 @@ class HeroComponent extends PositionComponent
 
   HeroComponent() : super() {
     add(RectangleHitbox());
-    weapons = [Weapon()];
+    weapons = []; //Weapon()];
     addAll(weapons);
   }
 
@@ -59,20 +59,22 @@ class HeroComponent extends PositionComponent
     return true;
   }
 
-  void move(double panX, double panY) {
-    final directionPan = Vector2(panX, panY) - position;
+  void move(Vector2 tapCoordinate) {
+    final directionPan = (tapCoordinate - absolutePosition).normalized();
 
-    velocity.x = directionPan.x;
-    direction.x = directionPan.x;
-    velocity.y = directionPan.y;
-    direction.y = directionPan.y;
+    velocity = directionPan;
+    direction = directionPan;
+  }
+
+  void stopMove() {
+    velocity = Vector2(0, 0);
   }
 
   void takeDamage(damage) {
     heroHealth--;
-    //TODO:Uncommit enable death for player
+    //TODO:Uncommit enable death for player.
+    //TODO:Implement move to dead screen.
     // if (heroHealth == 0) {
-    //   removeFromParent();
     //   game.pauseEngine();
     // }
   }

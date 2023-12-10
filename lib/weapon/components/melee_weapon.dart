@@ -1,4 +1,5 @@
 import 'package:flame/components.dart';
+import 'package:jam_game/game/components/hero.dart';
 import 'package:jam_game/weapon/components/bullet.dart';
 import 'package:jam_game/weapon/components/weapon.dart';
 
@@ -18,7 +19,7 @@ class MeleeWeapon extends Weapon {
           absolutePosition.y + 20,
         ),
         speed: 150,
-        isHero: false,
+        isHero: parent is HeroComponent,
         size: (parent! as PositionComponent).size + Vector2(4, 4),
         position: absolutePosition,
       ),
