@@ -6,7 +6,5 @@ class LevelTwo extends Component {
   Future<void> onLoad() async {
     super.onLoad();
     final game = findGame()! as NewGame;
-
-    game.setLevel = 2;
   }
 }

@@ -6,6 +6,7 @@ import 'package:jam_game/enemy/components/enemy_mammoth.dart';
 import 'package:jam_game/enemy/components/enemy_reindeer.dart';
 import 'package:jam_game/enemy/components/enemy_snowman.dart';
 import 'package:jam_game/game/game.dart';
+import 'package:jam_game/game/level_strings.dart';
 import 'package:jam_game/weapon/components/melee_weapon.dart';
 import 'package:jam_game/weapon/components/weapon.dart';
 
@@ -26,7 +27,7 @@ class EnemyCreator extends TimerComponent with HasGameReference<NewGame> {
     final mobX = centerX + radius * cos(angle);
     final mobY = centerY + radius * sin(angle);
 
-    if (game.currentLvl >= 1) {
+    if (game.router.currentRoute.name == LevelStrings.levelFirst) {
       game.add(
         EnemyMammoth(
           mobX + random.nextInt(50),
@@ -35,7 +36,7 @@ class EnemyCreator extends TimerComponent with HasGameReference<NewGame> {
         ),
       );
     }
-    if (game.currentLvl >= 2) {
+    if (game.router.currentRoute.name == LevelStrings.levelTwo) {
       game.add(
         EnemySnowman(
           mobX + random.nextInt(50),
@@ -44,7 +45,7 @@ class EnemyCreator extends TimerComponent with HasGameReference<NewGame> {
         ),
       );
     }
-    if (game.currentLvl >= 3) {
+    if (game.router.currentRoute.name == LevelStrings.levelThree) {
       game.add(
         EnemyReindeer(
           mobX + random.nextInt(50),
@@ -53,7 +54,7 @@ class EnemyCreator extends TimerComponent with HasGameReference<NewGame> {
         ),
       );
     }
-    if (game.currentLvl >= 4) {
+    if (game.router.currentRoute.name == LevelStrings.levelFour) {
       game.add(
         EnemyIcicle(
           mobX + random.nextInt(50),
