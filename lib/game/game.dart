@@ -3,11 +3,7 @@ import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:jam_game/enemy/components/enemy_generator.dart';
 import 'package:jam_game/game/components/hero.dart';
-import 'package:jam_game/game/components/level_four.dart';
 import 'package:jam_game/game/components/level_generator.dart';
-import 'package:jam_game/game/components/level_three.dart';
-import 'package:jam_game/game/components/level_two.dart';
-import 'package:jam_game/game/level_strings.dart';
 
 class NewGame extends FlameGame
     with
@@ -16,11 +12,14 @@ class NewGame extends FlameGame
         PanDetector,
         MouseMovementDetector {
   Vector2 mousePosition = Vector2(0, 0);
+  int currentLvl = 1;
 
   static const double heroWidth = 25.0;
   static const double heroHeight = 25.0;
   static final Vector2 heroSize = Vector2(heroWidth, heroHeight);
   late final RouterComponent router;
+
+  set setLevel(int value) => currentLvl = value;
 
   @override
   Future<void> onLoad() async {
@@ -35,12 +34,9 @@ class NewGame extends FlameGame
     add(
       router = RouterComponent(
         routes: {
-          LevelStrings.levelFirst: Route(NewGame.new),
-          LevelStrings.levelTwo: Route(LevelTwo.new),
-          LevelStrings.levelThree: Route(LevelThree.new),
-          LevelStrings.levelFour: Route(LevelFour.new),
+          'home': Route(NewGame.new),
         },
-        initialRoute: LevelStrings.levelFirst,
+        initialRoute: 'home',
       ),
     );
 
