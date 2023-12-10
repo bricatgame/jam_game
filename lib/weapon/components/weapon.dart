@@ -13,7 +13,7 @@ class Weapon extends PositionComponent
   late Timer attackCreator;
   final double timer = 0.5;
 
-  Weapon() : super(size: Vector2.all(10), position: Vector2(0, 0)) {
+  Weapon({super.position, super.size}) {
     attackCreator = Timer(
       timer,
       repeat: true,
@@ -21,13 +21,17 @@ class Weapon extends PositionComponent
     );
   }
   @override
-  bool get debugMode => true;
+  bool get debugMode => false;
+
+  late Sprite bullet;
 
   @override
   FutureOr<void> onLoad() async {
     super.onLoad();
 
     attackCreator.start();
+
+    bullet = await game.loadSprite('advent_wreath_NO_HANDS.png');
   }
 
   @override
@@ -63,7 +67,8 @@ class Weapon extends PositionComponent
         speed: 150,
         limits: Vector4(0, 0, game.size.x, game.size.y),
         isHero: parent is HeroComponent,
-        size: Vector2.all(10),
+        sprite: bullet,
+        size: Vector2.all(24),
         position: absolutePosition,
       ),
     ];

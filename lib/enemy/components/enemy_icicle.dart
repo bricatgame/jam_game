@@ -1,3 +1,4 @@
+import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:jam_game/enemy/components/enemy.dart';
 
@@ -7,7 +8,7 @@ class EnemyIcicle extends EnemyComponent {
           enemyHealth: 10,
         );
   @override
-  bool get debugMode => true;
+  bool get debugMode => false;
 
   @override
   Color get debugColor => Colors.blue;
@@ -16,6 +17,7 @@ class EnemyIcicle extends EnemyComponent {
   Future<void> onLoad() async {
     await super.onLoad();
 
-    // sprite = await game.loadSprite('flutter.png');
+    sprite = await game.loadSprite('icicle.png');
+    size = Vector2.all(80);
   }
 }

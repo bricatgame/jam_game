@@ -4,13 +4,14 @@ import 'package:flame/components.dart';
 import 'package:jam_game/game/game.dart';
 
 class LevelText extends TextComponent {
+  LevelText({super.position});
   @override
   FutureOr<void> onLoad() async {
     super.onLoad();
     add(
       TextComponent(
         text: '',
-        position: Vector2.all(100),
+        position: Vector2(0, 0),
       ),
     );
   }
@@ -22,7 +23,5 @@ class LevelText extends TextComponent {
     final game = findGame()! as NewGame;
 
     text = '${game.currentLvl}/4';
-
-    position = Vector2(350, 50);
   }
 }

@@ -9,7 +9,7 @@ import 'package:jam_game/game/components/hero.dart';
 import 'package:jam_game/game/game.dart';
 import 'package:jam_game/weapon/components/weapon.dart';
 
-class EnemyComponent extends PositionComponent
+class EnemyComponent extends SpriteComponent
     with HasGameReference<NewGame>, CollisionCallbacks
     implements IEnemy {
   static const enemySpeed = 50;
@@ -25,13 +25,13 @@ class EnemyComponent extends PositionComponent
     double y, {
     required this.weapons,
     this.enemyHealth = 1,
-  }) : super(position: Vector2(x, y), size: Vector2.all(25)) {
+  }) : super(position: Vector2(x, y), size: Vector2.all(64)) {
     addAll(weapons);
     add(RectangleHitbox());
   }
 
   @override
-  bool get debugMode => true;
+  bool get debugMode => false;
 
   @override
   Future<void> onLoad() async {
@@ -41,7 +41,7 @@ class EnemyComponent extends PositionComponent
       maxPlayers: 4,
     );
 
-    // sprite = await game.loadSprite('flutter.png');
+    sprite = await game.loadSprite('snowball.png');
   }
 
   @override

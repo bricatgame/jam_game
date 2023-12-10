@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flame/components.dart';
 import 'package:jam_game/game/components/hero.dart';
 import 'package:jam_game/weapon/components/bullet.dart';
@@ -8,6 +10,13 @@ class BellsWeapon extends Weapon {
   final double timer = 2;
 
   @override
+  FutureOr<void> onLoad() async {
+    super.onLoad();
+
+    bullet = await game.loadSprite('jingle_bell.png');
+  }
+
+  @override
   List<BulletComponent> createBullet(Vector2 direction) {
     return [
       BulletComponent(
@@ -15,7 +24,8 @@ class BellsWeapon extends Weapon {
         speed: 200,
         limits: Vector4(0, 0, game.size.x, game.size.y),
         isHero: parent is HeroComponent,
-        size: Vector2.all(10),
+        sprite: bullet,
+        size: Vector2.all(24),
         position: absolutePosition,
       ),
       BulletComponent(
@@ -23,7 +33,8 @@ class BellsWeapon extends Weapon {
         speed: 200,
         limits: Vector4(0, 0, game.size.x, game.size.y),
         isHero: parent is HeroComponent,
-        size: Vector2.all(10),
+        sprite: bullet,
+        size: Vector2.all(24),
         position: absolutePosition,
       ),
       BulletComponent(
@@ -31,7 +42,8 @@ class BellsWeapon extends Weapon {
         speed: 200,
         limits: Vector4(0, 0, game.size.x, game.size.y),
         isHero: parent is HeroComponent,
-        size: Vector2.all(10),
+        sprite: bullet,
+        size: Vector2.all(24),
         position: absolutePosition,
       ),
       BulletComponent(
@@ -39,7 +51,8 @@ class BellsWeapon extends Weapon {
         speed: 200,
         limits: Vector4(0, 0, game.size.x, game.size.y),
         isHero: parent is HeroComponent,
-        size: Vector2.all(10),
+        sprite: bullet,
+        size: Vector2.all(24),
         position: absolutePosition,
       )
     ];

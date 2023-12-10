@@ -5,7 +5,7 @@ import 'package:jam_game/game/components/hero.dart';
 import 'package:jam_game/game/game.dart';
 import 'package:jam_game/weapon/i_bullet.dart';
 
-class BulletComponent extends PositionComponent
+class BulletComponent extends SpriteComponent
     with HasGameReference<NewGame>, CollisionCallbacks
     implements IBullet {
   final double speed;
@@ -18,6 +18,7 @@ class BulletComponent extends PositionComponent
     required this.speed,
     required this.isHero,
     required this.limits,
+    super.sprite,
     super.size,
     super.position,
   }) {
@@ -25,7 +26,7 @@ class BulletComponent extends PositionComponent
   }
 
   @override
-  bool get debugMode => true;
+  bool get debugMode => false;
 
   @override
   void update(double dt) {

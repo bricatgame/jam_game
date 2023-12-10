@@ -7,7 +7,7 @@ class EnemyMammoth extends EnemyComponent {
           enemyHealth: 1,
         );
   @override
-  bool get debugMode => true;
+  bool get debugMode => false;
 
   @override
   Color get debugColor => Colors.brown;
@@ -16,6 +16,6 @@ class EnemyMammoth extends EnemyComponent {
   Future<void> onLoad() async {
     await super.onLoad();
 
-    // sprite = await game.loadSprite('flutter.png');
+    sprite = await game.loadSprite('mammoth.png');
   }
 }

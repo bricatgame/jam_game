@@ -7,7 +7,7 @@ class EnemyReindeer extends EnemyComponent {
           enemyHealth: 3,
         );
   @override
-  bool get debugMode => true;
+  bool get debugMode => false;
 
   @override
   Color get debugColor => Colors.yellow;
@@ -16,6 +16,6 @@ class EnemyReindeer extends EnemyComponent {
   Future<void> onLoad() async {
     await super.onLoad();
 
-    // sprite = await game.loadSprite('flutter.png');
+    sprite = await game.loadSprite('deer.png');
   }
 }
