@@ -69,7 +69,7 @@ class HeroComponent extends PositionComponent
     velocity = Vector2(0, 0);
   }
 
-  void takeDamage(damage) {
+  void takeDamage() {
     heroHealth--;
     //TODO:Uncommit enable death for player.
     //TODO:Implement move to dead screen.

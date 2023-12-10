@@ -11,7 +11,7 @@ class Weapon extends PositionComponent
     with HasGameReference<NewGame>
     implements IWeapon {
   late Timer attackCreator;
-  final double timer = 0.5;
+  final double timer = 1;
 
   Weapon() : super(size: Vector2.all(10), position: Vector2(0, 0)) {
     attackCreator = Timer(

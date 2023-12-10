@@ -5,7 +5,7 @@ import 'package:jam_game/weapon/components/weapon.dart';
 
 class MeleeWeapon extends Weapon {
   @override
-  final double timer = 1;
+  final double timer = 2;
 
   @override
   List<BulletComponent> createBullet(Vector2 direction) {

@@ -29,8 +29,8 @@ class EnemyCreator extends TimerComponent with HasGameReference<NewGame> {
     if (game.currentLvl >= 1) {
       game.add(
         EnemyMammoth(
-          mobX,
-          mobY,
+          mobX + random.nextInt(50),
+          mobY + random.nextInt(50),
           weapons: [MeleeWeapon()],
         ),
       );
@@ -38,8 +38,8 @@ class EnemyCreator extends TimerComponent with HasGameReference<NewGame> {
     if (game.currentLvl >= 2) {
       game.add(
         EnemySnowman(
-          mobX,
-          mobY,
+          mobX + random.nextInt(50),
+          mobY + random.nextInt(50),
           weapons: [Weapon()],
         ),
       );
@@ -47,8 +47,8 @@ class EnemyCreator extends TimerComponent with HasGameReference<NewGame> {
     if (game.currentLvl >= 3) {
       game.add(
         EnemyReindeer(
-          mobX,
-          mobY,
+          mobX + random.nextInt(50),
+          mobY + random.nextInt(50),
           weapons: [Weapon()],
         ),
       );
@@ -56,8 +56,8 @@ class EnemyCreator extends TimerComponent with HasGameReference<NewGame> {
     if (game.currentLvl >= 4) {
       game.add(
         EnemyIcicle(
-          mobX,
-          mobY,
+          mobX + random.nextInt(50),
+          mobY + random.nextInt(50),
           weapons: [Weapon()],
         ),
       );
