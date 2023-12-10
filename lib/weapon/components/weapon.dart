@@ -40,9 +40,10 @@ class Weapon extends PositionComponent
   @override
   void attack() {
     if (parent is EnemyComponent) {
-      final direction = (game.firstChild<HeroComponent>()?.position ??
-              Vector2(0, 0) - absolutePosition)
-          .normalized();
+      // Hero always exist, if it dead we need in same time move to dead screen.
+      final direction =
+          (game.firstChild<HeroComponent>()!.position - absolutePosition)
+              .normalized();
 
       game.addAll(createBullet(direction));
     }
@@ -61,7 +62,7 @@ class Weapon extends PositionComponent
         direction: direction,
         speed: 150,
         limits: Vector4(0, 0, game.size.x, game.size.y),
-        isHero: true,
+        isHero: parent is HeroComponent,
         size: Vector2.all(10),
         position: absolutePosition,
       ),

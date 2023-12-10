@@ -7,6 +7,7 @@ import 'package:jam_game/enemy/components/enemy_reindeer.dart';
 import 'package:jam_game/enemy/components/enemy_snowman.dart';
 import 'package:jam_game/game/game.dart';
 import 'package:jam_game/weapon/components/melee_weapon.dart';
+import 'package:jam_game/weapon/components/weapon.dart';
 
 class EnemyCreator extends TimerComponent with HasGameReference<NewGame> {
   Random random = Random();
@@ -25,16 +26,7 @@ class EnemyCreator extends TimerComponent with HasGameReference<NewGame> {
     final mobX = centerX + radius * cos(angle);
     final mobY = centerY + radius * sin(angle);
 
-    if (game.currentLvl == 1) {
-      game.add(
-        EnemySnowman(
-          mobX,
-          mobY,
-          weapons: [MeleeWeapon()],
-        ),
-      );
-    }
-    if (game.currentLvl == 2) {
+    if (game.currentLvl >= 1) {
       game.add(
         EnemyMammoth(
           mobX,
@@ -43,21 +35,30 @@ class EnemyCreator extends TimerComponent with HasGameReference<NewGame> {
         ),
       );
     }
-    if (game.currentLvl == 3) {
+    if (game.currentLvl >= 2) {
+      game.add(
+        EnemySnowman(
+          mobX,
+          mobY,
+          weapons: [Weapon()],
+        ),
+      );
+    }
+    if (game.currentLvl >= 3) {
       game.add(
         EnemyReindeer(
           mobX,
           mobY,
-          weapons: [MeleeWeapon()],
+          weapons: [Weapon()],
         ),
       );
     }
-    if (game.currentLvl == 4) {
+    if (game.currentLvl >= 4) {
       game.add(
         EnemyIcicle(
           mobX,
           mobY,
-          weapons: [MeleeWeapon()],
+          weapons: [Weapon()],
         ),
       );
     }

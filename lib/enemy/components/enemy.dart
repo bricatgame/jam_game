@@ -11,7 +11,7 @@ import 'package:jam_game/weapon/components/weapon.dart';
 class EnemyComponent extends PositionComponent
     with HasGameReference<NewGame>, CollisionCallbacks
     implements IEnemy {
-  static const enemySpeed = 100;
+  static const enemySpeed = 50;
   int enemyHealth;
   final List<Weapon> weapons;
 

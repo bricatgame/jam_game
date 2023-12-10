@@ -4,7 +4,7 @@ import 'package:jam_game/enemy/components/enemy.dart';
 class EnemyReindeer extends EnemyComponent {
   EnemyReindeer(super.x, super.y, {required super.weapons})
       : super(
-          enemyHealth: 5,
+          enemyHealth: 3,
         );
   @override
   bool get debugMode => true;

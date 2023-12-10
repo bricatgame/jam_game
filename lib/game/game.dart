@@ -13,7 +13,7 @@ class NewGame extends FlameGame
         PanDetector,
         MouseMovementDetector {
   Vector2 mousePosition = Vector2(0, 0);
-  int currentLvl = 1;
+  int currentLvl = 4;
 
   static const double heroWidth = 25.0;
   static const double heroHeight = 25.0;
@@ -52,8 +52,13 @@ class NewGame extends FlameGame
     super.onPanUpdate(info);
 
     mousePosition = info.eventPosition.widget;
-    firstChild<HeroComponent>()
-        ?.move(info.eventPosition.widget.x, info.eventPosition.widget.y);
+    firstChild<HeroComponent>()?.move(info.eventPosition.widget);
+  }
+
+  @override
+  void onPanEnd(DragEndInfo info) {
+    super.onPanEnd(info);
+    firstChild<HeroComponent>()?.stopMove();
   }
 
   @override

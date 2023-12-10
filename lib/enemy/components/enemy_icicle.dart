@@ -4,7 +4,7 @@ import 'package:jam_game/enemy/components/enemy.dart';
 class EnemyIcicle extends EnemyComponent {
   EnemyIcicle(super.x, super.y, {required super.weapons})
       : super(
-          enemyHealth: 5,
+          enemyHealth: 10,
         );
   @override
   bool get debugMode => true;
