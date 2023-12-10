@@ -14,15 +14,27 @@ class NewGame extends FlameGame
         PanDetector,
         MouseMovementDetector {
   Vector2 mousePosition = Vector2(0, 0);
-  int currentLvl = 1;
+  int currentLvl = 4;
 
   static const double heroWidth = 25.0;
   static const double heroHeight = 25.0;
   static final Vector2 heroSize = Vector2(heroWidth, heroHeight);
   late final RouterComponent router;
 
+  NewGame()
+      : super(
+          camera:
+              CameraComponent.withFixedResolution(width: 1920, height: 1080),
+        );
+
   @override
   Future<void> onLoad() async {
+    // camera.viewfinder.visibleGameSize = Vector2(1920, 1080);
+    // camera.viewfinder.position = Vector2(0, 0);
+    // camera.viewfinder.anchor = Anchor.topLeft;
+
+    add(SpriteComponent(sprite: await loadSprite('BG_snow.png')));
+
     final hero = HeroComponent()
       ..size = heroSize
       ..position = Vector2(heroWidth, heroHeight);
@@ -31,22 +43,20 @@ class NewGame extends FlameGame
 
     add(LevelGenerator());
 
-    add(TimerText());
+    add(TimerText(position: Vector2(size.x / 2, 50)));
 
     add(LevelText());
 
-    add(
-      router = RouterComponent(
-        routes: {
-          'home': Route(NewGame.new),
-        },
-        initialRoute: 'home',
-      ),
-    );
+    // add(
+    //   router = RouterComponent(
+    //     routes: {
+    //       'home': Route(NewGame.new),
+    //     },
+    //     initialRoute: 'home',
+    //   ),
+    // );
 
-    camera.viewfinder.visibleGameSize = Vector2(200, 200);
-    camera.viewfinder.position = Vector2(heroWidth * 3.5, heroHeight);
-    camera.viewfinder.anchor = Anchor.topLeft;
+    print(size);
   }
 
   @override

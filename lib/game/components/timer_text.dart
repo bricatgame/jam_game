@@ -4,13 +4,15 @@ import 'package:flame/components.dart';
 import 'package:jam_game/game/components/level_generator.dart';
 
 class TimerText extends TextComponent {
+  TimerText({super.position});
+
   @override
   FutureOr<void> onLoad() async {
     super.onLoad();
     add(
       TextComponent(
         text: '',
-        position: Vector2(0, 50),
+        position: Vector2(0, 0),
       ),
     );
   }
@@ -26,6 +28,6 @@ class TimerText extends TextComponent {
 
     text = currentTime.ceil().toString();
 
-    position = Vector2(0, 50);
+    // position = Vector2(game?.size.x ?? 1 / 2, 50);
   }
 }
