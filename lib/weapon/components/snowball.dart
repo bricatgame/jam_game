@@ -5,9 +5,9 @@ import 'package:jam_game/game/components/hero.dart';
 import 'package:jam_game/weapon/components/bullet.dart';
 import 'package:jam_game/weapon/components/weapon.dart';
 
-class MeleeWeapon extends Weapon {
+class SnowBallWeapon extends Weapon {
   @override
-  final double timer = 2;
+  final double timer = 4;
 
   @override
   FutureOr<void> onLoad() async {
@@ -21,16 +21,11 @@ class MeleeWeapon extends Weapon {
     return [
       BulletComponent(
         direction: direction,
-        limits: Vector4(
-          absolutePosition.x - 20,
-          absolutePosition.y - 20,
-          absolutePosition.x + 20,
-          absolutePosition.y + 20,
-        ),
-        speed: 150,
+        speed: 200,
+        limits: Vector4(0, 0, game.size.x, game.size.y),
         isHero: parent is HeroComponent,
         sprite: bullet,
-        size: (parent! as PositionComponent).size + Vector2(4, 4),
+        size: Vector2.all(24),
         position: absolutePosition,
       ),
     ];

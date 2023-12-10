@@ -2,41 +2,53 @@ import 'dart:math';
 
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:jam_game/enemy/i_enemy.dart';
 import 'package:jam_game/game/components/hero.dart';
 
 import 'package:jam_game/game/game.dart';
 import 'package:jam_game/weapon/components/weapon.dart';
 
-class EnemyComponent extends PositionComponent
+class EnemyComponent extends SpriteComponent
     with HasGameReference<NewGame>, CollisionCallbacks
     implements IEnemy {
-  static const enemySpeed = 100;
+  static const enemySpeed = 50;
+  int enemyHealth;
   final List<Weapon> weapons;
 
   bool destroyed = false;
 
-  EnemyComponent(double x, double y, this.weapons)
-      : super(position: Vector2(x, y), size: Vector2.all(25)) {
+  late AudioPool pool;
+
+  EnemyComponent(
+    double x,
+    double y, {
+    required this.weapons,
+    this.enemyHealth = 1,
+  }) : super(position: Vector2(x, y), size: Vector2.all(64)) {
     addAll(weapons);
     add(RectangleHitbox());
   }
 
   @override
-  bool get debugMode => true;
+  bool get debugMode => false;
 
   @override
   Future<void> onLoad() async {
     await super.onLoad();
+    pool = await FlameAudio.createPool(
+      'monster-death-grunt-131480.mp3',
+      maxPlayers: 4,
+    );
 
-    // sprite = await game.loadSprite('flutter.png');
+    sprite = await game.loadSprite('snowball.png');
   }
 
   @override
   void update(double dt) {
     super.update(dt);
 
-    moving(dt, game.firstChild<HeroComponent>()!.position);
+    moving(dt, game.firstChild<HeroComponent>()?.position ?? Vector2(0, 0));
 
     if (destroyed) {
       removeFromParent();
@@ -48,6 +60,10 @@ class EnemyComponent extends PositionComponent
     super.onCollision(intersectionPoints, other);
     if (other is HeroComponent) {
       takeDamage();
+    }
+    if (other is EnemyComponent) {
+      x -= 0.5;
+      y += 0.5;
     }
   }
 
@@ -70,6 +86,11 @@ class EnemyComponent extends PositionComponent
 
   @override
   Future<void> takeDamage() async {
-    destroyed = true;
+    enemyHealth--;
+    if (enemyHealth == 0) {
+      pool.start();
+
+      destroyed = true;
+    }
   }
 }
